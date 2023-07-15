@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   contacts: [],
 };
-
 export const contactSlice = createSlice({
   name: 'contacts',
   initialState,

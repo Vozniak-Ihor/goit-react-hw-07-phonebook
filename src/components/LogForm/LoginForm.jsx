@@ -11,11 +11,11 @@ const schema = yup.object().shape({
   name: yup.string().required("Ім'я обов'язкове"),
   phoneNumber: yup
     .string()
-    .matches(
-      /^(\+?3?8)?(0\d{9})$/,
-      'The number should look like this: +380XXXXXXXXX'
-    )
-    .required("Номер телефону обов'язковий"),
+    // .matches(
+    //   /^(\+?3?8)?(0\d{9})$/,
+    //   'The number should look like this: +380XXXXXXXXX'
+    // )
+    // .required("Номер телефону обов'язковий"),
 });
 
 const initialValues = {
@@ -39,9 +39,9 @@ const LoginForm = () => {
       number: values.phoneNumber.toString(),
     };
     dispatch(addContacts(newContact));
-
     actions.resetForm();
   };
+
   return (
     <Formik
       initialValues={initialValues}
