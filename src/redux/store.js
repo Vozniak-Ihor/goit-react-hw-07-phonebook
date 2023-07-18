@@ -1,5 +1,11 @@
-import { configureStore } from "@reduxjs/toolkit";
-import rootReduser from 'redux/contactSlice/contactSlice'
+import { configureStore } from '@reduxjs/toolkit';
+import { contactSlice } from './contactSlice/contactSlice';
+import { filterSlice } from './filterSlice/filterSlice';
+export const store = configureStore({
+  reducer: {
+    contacts: contactSlice.reducer,
+    filter: filterSlice.reducer,
+  },
+});
 
-const store = configureStore({reducer: rootReduser})
-export default store
+export default store;

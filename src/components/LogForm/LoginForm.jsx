@@ -3,9 +3,9 @@ import css from './LoginForm.module.css';
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { nanoid } from 'nanoid';
-import { useDispatch, useSelector} from 'react-redux';
-import { addContacts } from '../../redux/contactSlice/contactSlice';
-import { getContacts } from 'redux/contactSlice/contactSelectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from '../../redux/operations';
+import { contactsSelector } from 'redux/contactSlice/contactSelectors';
 
 const schema = yup.object().shape({
   name: yup.string().required("Ім'я обов'язкове"),
@@ -24,7 +24,7 @@ const initialValues = {
 };
 
 const LoginForm = () => {
-  const storeContacts = useSelector(getContacts);
+  const storeContacts = useSelector(contactsSelector);
   const dispatch = useDispatch();
 
   const handleSubmit = (values, actions) => {
@@ -38,10 +38,10 @@ const LoginForm = () => {
       name: values.name,
       number: values.phoneNumber.toString(),
     };
-    dispatch(addContacts(newContact));
+    dispatch(addContact(newContact));
+
     actions.resetForm();
   };
-
   return (
     <Formik
       initialValues={initialValues}
@@ -69,5 +69,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-
-
