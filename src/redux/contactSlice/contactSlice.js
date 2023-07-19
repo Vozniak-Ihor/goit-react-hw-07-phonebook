@@ -3,11 +3,13 @@ import { fetchContacts, addContact, deleteContact } from '../operations';
 
 const initialState = {
   items: [],
-  isLoaidng: false,
+  isLoading: false,
   error: null,
 };
 
-const handlePending = state => (state.isLoaidng = true);
+const handlePending = state => {
+  state.isLoading = true
+}
 
 const handleRejected = (state, { payload }) => {
   state.isLoading = false;
@@ -30,7 +32,7 @@ const handleFulfilledAdd = (state, action) => {
 };
 
 const handleFulfilledDelete = (state, { payload }) => {
-  state.items.filter(({ id }) => id !== payload.id);
+  state.items = state.items.filter(({ id }) => id !== payload.id);
   handleFulfilled(state);
 };
 
@@ -43,8 +45,23 @@ export const contactSlice = createSlice({
       .addCase(fetchContacts.fulfilled, handleFulfilledGet)
       .addCase(addContact.fulfilled, handleFulfilledAdd)
       .addCase(deleteContact.fulfilled, handleFulfilledDelete)
-      .addMatcher(isAnyOf( fetchContacts.pending, addContact.pending, deleteContact.pending),handlePending)
-      .addMatcher(isAnyOf(fetchContacts.rejected, addContact.rejected, deleteContact.rejected),handleRejected);},
+      .addMatcher(
+        isAnyOf(
+          fetchContacts.pending,
+          addContact.pending,
+          deleteContact.pending
+        ),
+        handlePending
+      )
+      .addMatcher(
+        isAnyOf(
+          fetchContacts.rejected,
+          addContact.rejected,
+          deleteContact.rejected
+        ),
+        handleRejected
+      );
+  },
 });
 
 
