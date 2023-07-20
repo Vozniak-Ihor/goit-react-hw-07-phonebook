@@ -1,8 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-// import { Notify } from 'notiflix/build/notiflix-notify-aio';
-// axios.defaults.baseURL = 'https://64b03a19c60b8f941af56ea1.mockapi.io';
-axios.defaults.baseURL = 'https://64a1c3170079ce56e2db6137.mockapi.io';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+axios.defaults.baseURL = 'https://64b03a19c60b8f941af56ea1.mockapi.io/contacts';
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',
   async (_, { rejectWithValue }) => {
@@ -22,7 +21,7 @@ export const addContact = createAsyncThunk(
        
         try {
             const response = await axios.post('/contacts', contact);
-            //   Notify.success('Сontact was added', { fontSize: '20px', width: '300px' });
+              Notify.success('Сontact added', { fontSize: '15px', width: '200px' });
             return response.data;
         } catch (error) {
             return rejectWithValue(error.message);
@@ -35,10 +34,10 @@ export const deleteContact = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const response = await axios.delete(`/contacts/${id}`);
-    //   Notify.failure('Сontact was deleted', {
-        // fontSize: '20px',
-        // width: '300px',
-    //   });
+      Notify.failure('Contact deleted', {
+        fontSize: '15px',
+        width: '200px',
+      });
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

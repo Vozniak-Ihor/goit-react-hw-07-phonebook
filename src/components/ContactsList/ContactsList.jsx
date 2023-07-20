@@ -7,7 +7,9 @@ import {
   isLoadingSelector,
 } from 'redux/contactSlice/contactSelectors';
 import { getFilter } from 'redux/filterSlice/filterSelectors';
-import { useState } from 'react';
+
+
+import { BallTriangle } from 'react-loader-spinner';
 
 const ContactsList = () => {
   const isLoading = useSelector(isLoadingSelector);
@@ -27,11 +29,21 @@ const ContactsList = () => {
 
   return (
     <>
-      {/* {isLoading ? (
-        <p className={css.isLoading}>Loading</p>
-      ) : ( */}
       <ul className={css.contactList}>
-        {isLoading && <p className={css.isLoading}>Loading</p>}
+        {isLoading && (
+          <div className={css.isLoadingWrapper}>
+            <BallTriangle
+              height={100}
+              width={100}
+              radius={5}
+              color="#4fa94d"
+              ariaLabel="ball-triangle-loading"
+              wrapperClass={css.isLoading}
+              wrapperStyle=""
+              visible={true}
+            />
+          </div>
+        )}
         {filteredContact().map(({ id, name, number }) => (
           <li className={css.contactItem} key={id}>
             <p className={css.contactDetails}>
@@ -48,7 +60,6 @@ const ContactsList = () => {
           </li>
         ))}
       </ul>
-      {/*  )} */}
     </>
   );
 };
